@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>ドラゴンカーブ</title>
+    <script>
+        window.onload = function(){
+            var canvas = document.getElementById("mycanvas");
+            var ctx = canvas.getContext("2d");
+            ctx.fillStyle = "white";
+            ctx.fillRect(0,0,800,640);
+            ctx.strokeStyle = "blue";
+            ctx.beginPath();
+            var cur_x = 100;
+            var cur_y = 100;
+            ctx.moveTo(cur_x, cur_y);
+            dragon(ctx,15,200,0,1);
+            ctx.stroke();
+            
+            //ドラゴンカーブを描く
+            //  c:描画するコンテキスト
+            //  i:長さ
+            //  dx,dy:増加分
+            //  sign:符号
+            function dragon(c, i, dx, dy, sign){
+                if(i === 0){
+                    cur_x += dx;
+                    cur_y += dy;
+                    c.lineTo(cur_x, cur_y);
+                }else{
+                    dragon(c, i-1, (dx-sign*dy)/2, (dy+sign*dx)/2, 1);
+                    dragon(c, i-1, (dx+sign*dy)/2, (dy-sign*dx)/2, -1);
+                }
+            }
+        };
+    </script>
+</head>
+<body>
+    <canvas id = "mycanvas" width = "800" height="640"></canvas>
+</body>
+</html>
